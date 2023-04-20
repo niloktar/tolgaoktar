@@ -367,12 +367,19 @@ font-weight: 600;
     section {
         padding: 130px 3% 60px;
     }
+    :root {
+        --h1-font: 2.4rem;
+        --h2-font: 2rem;
+        --h3-font: 1.3rem;
+        --p-font: 1.2rem;
+    }
 }
 @media (max-width: 970px){
     :root {
-        --h1-font: 4.2rem;
-        --h2-font: 2.9rem;
-        --p-font: 1rem;
+        --h1-font: 2.4rem;
+        --h2-font: 2rem;
+        --h3-font: 1.3rem;
+        --p-font: 1.2rem;
     }
     section {
         padding: 70px 3% 60px;
@@ -414,8 +421,13 @@ font-weight: 600;
     .navbar.active {
         top: 100%;
     }
+    .home-text {
+        margin: 350px 0 0;
+    }
     :root {
-        --h1-font: 3.7rem;
-        --h2-font: 2.7rem;
+        --h1-font: 2.4rem;
+        --h2-font: 2rem;
+        --h3-font: 1.3rem;
+        --p-font: 1.2rem;
     }
 }

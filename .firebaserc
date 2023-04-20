@@ -1,6 +1,7 @@
 {
   "projects": {
-    "hosting": "tolgaoktarcom"
+    "hosting": "tolgaoktarcom",
+    "default": "tolgaoktarcom"
   },
   "targets": {},
   "etags": {}

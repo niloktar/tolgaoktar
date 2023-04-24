@@ -47,9 +47,12 @@ header.sticky {
     border-bottom: 1px solid #02031223;
 }
 
-.logo img {
-    width: 45px;
+.logo {
+    width: 100px;
     height: auto;
+    font: var(--h3-font);
+    font-weight: 600;
+    color: var(--h1-color); 
 }
 
 .navbar {
@@ -59,14 +62,16 @@ header.sticky {
     color: var(--second-color);
     font-size: var(--p-font);
     font-weight: 600;
-    padding: 10px 25px;
+    padding: 5px 20px;
     margin: 0 2px;
-    border-radius: 0.5rem;
-    transition: all 0.40 ease;
 }
 .navbar a:hover{
-    background: var(--main-color);
+    border: solid var(--main-color);
+    border-radius: 0.5rem;
     color: var(--text-color);
+    background: #02031223;
+    transform: scale(1) translateY(-3px);
+    transition: all 0.20 ease;
 }
 #menu-icon {
     font-size: 36px;
@@ -197,11 +202,17 @@ header.sticky {
     display: inline-block;
     font-size: 17px;
     font-weight: 500;
-    background: var(--main-color);
+    text-align: center;
     color: var(--text-color);
+    border: solid var(--main-color) 0.1rem;
     width: 100px;
     transition: all 0.40s ease;
     cursor: pointer;
+}
+.contact-form form .send:hover{
+    transform: scale(1.01) translateY(-3px);
+    background: transparent;
+    border: 1px solid var(--main-color);
 }
 
 @media (max-width: 1325px){

@@ -59,19 +59,20 @@ header {
     display: flex;
 }
 .navbar a {
+    border: solid transparent;
+    border-radius: 0.5rem;
     color: var(--second-color);
     font-size: var(--p-font);
     font-weight: 600;
     padding: 5px 20px;
     margin: 0 2px;
+    transition: border-color .3s ease;
 }
-.navbar a:hover{
-    border: solid var(--main-color);
-    border-radius: 0.5rem;
+.navbar a:hover, .navbar a.active {
+    border-color: var(--main-color);
     color: var(--text-color);
     background: #02031223;
     transform: scale(1) translateY(-3px);
-    transition: all 0.20 ease;
 }
 #menu-icon {
     font-size: 36px;
@@ -250,39 +251,48 @@ header.sticky {
 }
 .slider {
     width: 100%;
+    display: flex;
+    gap: 2rem;
     overflow: scroll;
     white-space:nowrap;
 }
-
-.slide img {
-    width: 100%;
-    height: auto;
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
 .slide {
+    width: 100%;
     padding: 25px;
     background: #12141c;
     border-radius: 0.5rem;
     transition: all .40s ease;
-    display: inline-block;
-    width: 40%;
-    height: 100%;
-    margin: 10px;
 }
-
+.slide-img {
+    width: 400px;
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.slide-img img {
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
+    object-fit: cover;
+    
+}
 .main-slide {
+    width: 100%;
+    max-width: 400px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
     justify-content: space-between;
     margin-bottom: 1rem;
 }
 
 .slide h3{
+    max-width: 300px;
     font-size: 25px;
     font-weight: 700;
-    color: var(--text-color)
+    color: var(--text-color);
+    flex-wrap: wrap;
 }
 
 .slide h6 {
@@ -295,7 +305,6 @@ header.sticky {
     transform: scale(1.01) translate(-5px);
     cursor: pointer;
 }
-
 
 .contact {
     display: grid;

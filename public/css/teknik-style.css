@@ -91,6 +91,7 @@ header.sticky {
     color: var(--main-color);
     font-size: 24px;
     font-weight: 600;
+    margin-bottom:4rem;
 }
 .slider {
     width: 100%;

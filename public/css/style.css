@@ -201,6 +201,7 @@ header.sticky {
     color: var(--main-color);
     font-size: 24px;
     font-weight: 600;
+    margin-bottom:4rem;
 }
 .services-content {
     width: 100%;

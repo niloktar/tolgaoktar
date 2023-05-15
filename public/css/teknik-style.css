@@ -43,8 +43,8 @@ header {
 }
 header.sticky {
     padding: 10px 16%;
-    background: #02031223;
-    border-bottom: 1px solid #02031223;
+    background: #020312a7;
+    border-bottom: 1px solid #020312a7;
 }
 
 .logo {
@@ -108,12 +108,12 @@ header.sticky {
     height: 100%;
     max-width: 100%;
 }
-
 .slide img {
     width: 100%;
     height: auto;
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
+    padding: 10px;
+    border-radius: inherit;
+    object-fit: cover;
 }
 
 .slide h3{
@@ -236,10 +236,20 @@ header.sticky {
         --h1-font: 2.4rem;
         --h2-font: 2rem;
         --h3-font: 1.3rem;
-        --p-font: 1.2rem;
+        --p-font: 1rem;
     }
     section {
         padding: 70px 3% 60px;
+    }
+    .formasyon .slider {
+        margin-left: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(900px, auto));
+    }
+    .formasyon .slide:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+        height: 100%;
     }
     .contact {
         grid-template-columns: 1fr;
@@ -274,6 +284,6 @@ header.sticky {
         --h1-font: 2.4rem;
         --h2-font: 2rem;
         --h3-font: 1.3rem;
-        --p-font: 1.2rem;
+        --p-font: 1rem;
     }
 }

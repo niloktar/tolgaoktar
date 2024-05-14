@@ -11,7 +11,7 @@
 :root {
     --bg-color: #020312;
     --text-color: #fff;
-    --h1-color:#b0f9ff;
+    --h1-color: #b0f9ff;
     --main-color: #18e2ff;
     --second-color: rgb(180, 180, 180);
     --other-color: #12141c;
@@ -22,7 +22,8 @@
     --p-font: 1rem;
 }
 
-html,body {
+html,
+body {
     position: relative;
     height: 100%;
 }
@@ -52,12 +53,13 @@ header {
     height: auto;
     font: var(--h3-font);
     font-weight: 600;
-    color: var(--h1-color); 
+    color: var(--h1-color);
 }
 
 .navbar {
     display: flex;
 }
+
 .navbar a {
     border: solid transparent;
     border-radius: 0.5rem;
@@ -74,6 +76,7 @@ header {
     background: #02031223;
     transform: scale(1) translateY(-3px);
 }
+
 #menu-icon {
     font-size: 36px;
     color: var(--text-color);
@@ -83,7 +86,7 @@ header {
 }
 
 section {
-    padding: 160px 16% 90px;
+    padding: 10px 16% 0px;
 }
 
 .home {
@@ -97,12 +100,14 @@ section {
     display: flex;
     justify-content: space-between;
 }
-.contact-icons-home{ 
+
+.contact-icons-home {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5em;
 }
-.home-text h1{
+
+.home-text h1 {
     margin: 20px 0;
     font-size: var(--h1-font);
     font-weight: bold;
@@ -110,18 +115,18 @@ section {
     letter-spacing: 2px;
 }
 
-span{
+span {
     color: var(--h1-color);
 }
 
-.home-text h4{
+.home-text h4 {
     margin-bottom: 1rem;
     color: var(--main-color);
     font-size: var(--h4-font);
     font-weight: 600;
 }
 
-.home-text h3{
+.home-text h3 {
     font-size: var(--p-font);
     font-weight: 600;
     margin-bottom: 2rem;
@@ -139,16 +144,18 @@ span{
     border-radius: 0.5rem;
     transition: all .40s ease;
 }
-.btn:hover{
+
+.btn:hover {
     transform: scale(1.01) translateY(-3px);
     border: 1px solid var(--main-color);
 }
 
-.contact-icons-home i{ 
+.contact-icons-home i {
     color: var(--main-color);
     font-size: 34px;
     transition: all 0.40s ease;
 }
+
 .contact-icons-home i:hover {
     transform: scale(1.01) translateY(-.5px);
     color: var(--text-color);
@@ -167,42 +174,47 @@ header.sticky {
     gap: 2rem;
 }
 
-.about-text h4{
+.about-text h4 {
     margin: 10px 0;
     color: var(--h1-color);
     font-size: 20px;
     font-weight: 600;
 }
 
-.about-text h2{
+.about-text h2 {
     font-size: var(--h2-font);
 }
 
-.about-text p{
+.about-text p {
     color: var(--second-color);
     font-size: var(--p-font);
     line-height: 30px;
     margin-bottom: 2rem;
 }
 
-.about-img img{
+.about-img img {
     width: 100%;
     height: auto;
     max-width: 460px;
 }
+
 .main-text {
     text-align: center;
+    margin-top: 4rem;
 }
+
 .main-text h2 {
     font-size: var(--h2-font);
     margin-bottom: 10px;
 }
-.main-text h4{
+
+.main-text h4 {
     color: var(--main-color);
     font-size: 24px;
     font-weight: 600;
-    margin-bottom:4rem;
+    margin-bottom: 4rem;
 }
+
 .services-content {
     width: 100%;
     display: grid;
@@ -210,6 +222,7 @@ header.sticky {
     text-align: center;
     gap: 2rem;
 }
+
 .box {
     width: 100%;
     padding: 45px;
@@ -231,7 +244,7 @@ header.sticky {
     margin-bottom: 1rem;
 }
 
-.box h3{
+.box h3 {
     font-size: 24px;
     font-weight: 600;
     color: var(--main-color);
@@ -239,7 +252,7 @@ header.sticky {
     transition: all .40s ease;
 }
 
-.box p{
+.box p {
     color: var(--second-color);
     font-size: var(--p-font);
     line-height: 30px;
@@ -250,16 +263,44 @@ header.sticky {
     border-top: 5px solid var(--main-color);
 }
 
-.box:hover h3{
-    color: var(--main-color); 
+.box:hover h3 {
+    color: var(--main-color);
 }
+
 .slider {
     width: 100%;
     display: flex;
     gap: 2rem;
-    overflow: scroll;
-    white-space:nowrap;
-    margin-top: 5rem; 
+    overflow-y: scroll;
+    white-space: nowrap;
+    margin-top: 5rem;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.slider::-webkit-scrollbar {
+    display: none;
+}
+.portfolio {
+    position: relative;
+}
+.slider-arrow-content {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    align-items: center;
+    margin-top: 210px;
+}
+
+.slider-arrow img{
+    width: 25px;
+    height: 100%;
+    margin-right: 1220px;
+    margin-left: -30px;
+}
+.slider-arrow-2 img{
+    width: 25px;
+    height: 100%;
 }
 .slide {
     width: 100%;
@@ -275,13 +316,15 @@ header.sticky {
     border-radius: 0.5rem;
     margin-bottom: 1.5rem;
 }
+
 .slide-img img {
     width: 100%;
     height: auto;
     border-radius: inherit;
     object-fit: cover;
-    
+
 }
+
 .main-slide {
     width: 100%;
     max-width: 400px;
@@ -293,7 +336,7 @@ header.sticky {
     margin-bottom: 1rem;
 }
 
-.slide h3{
+.slide h3 {
     max-width: 300px;
     font-size: var(--p-font);
     font-weight: 700;
@@ -305,8 +348,9 @@ header.sticky {
     color: var(--main-color);
     font-size: var(--h4-font);
     font-weight: 500;
-    letter-spacing: 1px;     
+    letter-spacing: 1px;
 }
+
 .slide:hover {
     transform: scale(1.01) translate(-5px);
     cursor: pointer;
@@ -317,17 +361,21 @@ header.sticky {
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     gap: 3rem;
+
 }
-.contact-text h4{
+
+.contact-text h4 {
     margin: 15px 0;
     color: var(--main-color);
     font-size: 20px;
     font-weight: 600;
 
 }
+
 .contact-text h2 {
     font-size: var(--h2-font);
 }
+
 .contact-text p {
     color: var(--second-color);
     font-size: var(--p-font);
@@ -335,7 +383,7 @@ header.sticky {
     margin-bottom: 2rem;
 }
 
-.contact-icons i{
+.contact-icons i {
     width: 40px;
     height: 40px;
     background: #12141c;
@@ -348,16 +396,19 @@ header.sticky {
     margin-right: 10px;
     transition: all 0.40s ease;
 }
+
 .contact-icons i:hover {
     transform: scale(1.01) translateY(-5px);
     color: var(--text-color);
     background: var(--main-color);
 }
 
-.contact-form form{
+.contact-form form {
     position: relative;
 }
-.contact-form form input, form textarea {
+
+.contact-form form input,
+form textarea {
     border: none;
     outline: none;
     width: 100%;
@@ -369,10 +420,12 @@ header.sticky {
     margin-bottom: 0.5rem;
     border-radius: 0.5rem;
 }
+
 .contact-form textarea {
     resize: none;
     height: 220px;
 }
+
 .contact-form form .send {
     display: inline-block;
     font-size: 17px;
@@ -384,22 +437,38 @@ header.sticky {
     transition: all 0.40s ease;
     cursor: pointer;
 }
-.contact-form form .send:hover{
+
+.contact-form form .send:hover {
     transform: scale(1.01) translateY(-3px);
     background: transparent;
     border: 1px solid var(--main-color);
 }
 
-@media (max-width: 1325px){
-    header{
+footer {
+    position: relative;
+    padding: 90px 43% 0;
+    transform: translate(-50%-50%);
+
+}
+
+footer ul {
+    position: absolute;
+    top: 50%;
+}
+
+@media (max-width: 1325px) {
+    header {
         padding: 16px 3%;
     }
+
     header.sticky {
         padding: 8px 3%;
     }
+
     section {
         padding: 130px 3% 60px;
     }
+
     :root {
         --h1-font: 2.4rem;
         --h2-font: 2rem;
@@ -407,34 +476,51 @@ header.sticky {
         --p-font: 1.2rem;
     }
 }
-@media (max-width: 970px){
+
+@media (max-width: 970px) {
     :root {
         --h1-font: 2.4rem;
         --h2-font: 2rem;
         --h3-font: 1.3rem;
         --p-font: 1rem;
     }
+
+    .about {
+        align-items: center;
+        text-align: center;
+    }
+
+    footer {
+        position: relative;
+        padding: 90px 38% 0;
+    }
+
     section {
         padding: 70px 3% 60px;
     }
+
     .home {
         height: 85vh;
     }
+
     .about {
         grid-template-columns: 1fr;
     }
+
     .about-img {
         text-align: center;
     }
+
     .contact {
         grid-template-columns: 1fr;
     }
 }
 
-@media (max-width: 830px){
+@media (max-width: 830px) {
     #menu-icon {
         display: block;
     }
+
     .navbar {
         position: absolute;
         top: -600px;
@@ -446,17 +532,31 @@ header.sticky {
         text-align: left;
         transition: all .40s ease;
     }
-    .navbar a{
+
+    .navbar a {
         display: block;
         padding: 1rem;
         margin: 1rem;
     }
+
     .navbar.active {
         top: 100%;
     }
+
     .home-text {
         margin: 100px 0 0;
     }
+
+    .about {
+        align-items: center;
+        text-align: center;
+    }
+
+    footer {
+        position: relative;
+        padding: 90px 30% 0;
+    }
+
     :root {
         --h1-font: 2.4rem;
         --h2-font: 2rem;

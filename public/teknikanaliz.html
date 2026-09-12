@@ -19,123 +19,341 @@
         <div class="bx bx-menu" id="menu-icon"> </div>
 
         <ul class="navbar">
-            <li><a href="index.html" class="active">Anasayfa</a></li>
+            <li><a href="index.html">Anasayfa</a></li>
+            <li><a href="borsa.html">Borsa Takip</a></li>
             <li><a href="https://tolgaoktar.com/#hakkimda">Hakkımda</a></li>
             <li><a href="https://tolgaoktar.com/#calismalarim">Çalışmalarım</a></li>
             <li><a href="https://tolgaoktar.com/#blog">Yazılarım</a></li>
             <li><a href="https://tolgaoktar.com/#contact">İletişim</a></li>
         </ul>
     </header>
-    <section class="trade" id="trade">
-        <!-- TradingView Widget BEGIN -->
-    <div class="tradingview-widget-container">
-        <div class="main-text">
-            <h2>TradingView</h2>
-            <h4>Trading View Göstergeleri</h4>
+    <!-- Live Ticker Bar -->
+    <div class="teknik-ticker-bar">
+        <div class="tradingview-widget-container" style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(24, 226, 255, 0.15);">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+          {
+          "symbols": [
+            { "proName": "BIST:XU100", "title": "BİST 100" },
+            { "proName": "BIST:THYAO", "title": "THYAO" },
+            { "proName": "BIST:GARAN", "title": "GARAN" },
+            { "proName": "BIST:ASELS", "title": "ASELS" },
+            { "proName": "FX_IDC:USDTRY", "title": "USD / TRY" },
+            { "proName": "OANDA:XAUUSD", "title": "ONS ALTIN" },
+            { "proName": "FOREXCOM:SPXUSD", "title": "S&P 500" },
+            { "proName": "BITSTAMP:BTCUSD", "title": "BITCOIN" }
+          ],
+          "showSymbolLogo": true,
+          "isTransparent": false,
+          "displayMode": "adaptive",
+          "colorTheme": "dark",
+          "locale": "tr"
+        }
+          </script>
         </div>
-        <div class="trading-view-content">
-            <div id="tradingview_c7b53" class="tradingview_c7b53"></div>
-        </div>
-        <div class="tradingview-widget-copyright"><a href="https://tr.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL hisse grafiği</span></a> TradingView tarafından</div>
-            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-            <script type="text/javascript" class="tradingview-widget">
-            new TradingView.widget(
-            {
-            "width": 1000,
-            "height": 410,
-            "symbol": "NASDAQ:AAPL",
-            "interval": "D",
-            "timezone": "Europe/Istanbul",
-            "theme": "dark",
-            "style": "1",
-            "locale": "tr",
-            "toolbar_bg": "#f1f3f6",
-            "enable_publishing": false,
-            "allow_symbol_change": true,
-            "container_id": "tradingview_c7b53"
-            }
-            );
-            </script>
     </div>
-      <!-- TradingView Widget END -->
+
+    <!-- Main Technical Analysis Grid -->
+    <section class="trade" id="trade">
+        <div class="main-text">
+            <h2>İnteraktif Teknik Analiz Terminali</h2>
+            <h4>Çizim Araçları, Göstergeler & Canlı Sinyal Özeti</h4>
+        </div>
+
+        <div class="teknik-grid">
+            <!-- Left Side: Interactive Chart Card -->
+            <div class="teknik-card main-chart-card">
+                <div class="teknik-card-header">
+                    <div class="symbol-selector-bar">
+                        <span class="selector-label"><i class='bx bx-line-chart'></i> Hızlı Sembol:</span>
+                        <button class="sym-btn active" data-symbol="BIST:THYAO">THYAO</button>
+                        <button class="sym-btn" data-symbol="BIST:GARAN">GARAN</button>
+                        <button class="sym-btn" data-symbol="BIST:EREGL">EREGL</button>
+                        <button class="sym-btn" data-symbol="BIST:ASELS">ASELS</button>
+                        <button class="sym-btn" data-symbol="BIST:XU100">BİST 100</button>
+                        <button class="sym-btn" data-symbol="FX_IDC:USDTRY">USD/TRY</button>
+                        <button class="sym-btn" data-symbol="OANDA:XAUUSD">ONS ALTIN</button>
+                        <button class="sym-btn" data-symbol="NASDAQ:NVDA">NVDA</button>
+                        <button class="sym-btn" data-symbol="BITSTAMP:BTCUSD">BTC/USD</button>
+                    </div>
+                    <div class="interval-selector-bar">
+                        <span class="selector-label">Periyot:</span>
+                        <button class="interval-btn" data-interval="15">15D</button>
+                        <button class="interval-btn" data-interval="60">1S</button>
+                        <button class="interval-btn active" data-interval="D">Günlük</button>
+                        <button class="interval-btn" data-interval="W">Haftalık</button>
+                    </div>
+                </div>
+                
+                <div class="teknik-card-body">
+                    <div id="tv-teknik-chart-container" style="height: 520px; width: 100%;">
+                        <!-- TradingView Widget Loaded Dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Technical Analysis Summary Gauge -->
+            <div class="teknik-card side-gauge-card">
+                <div class="teknik-card-header">
+                    <div class="teknik-card-title">
+                        <i class='bx bx-tachometer'></i> Otomatik Teknik Sinyal Kadranı
+                    </div>
+                </div>
+                <div class="teknik-card-body" style="padding: 12px;">
+                    <div id="tv-gauge-container" style="height: 470px; width: 100%;">
+                        <!-- TradingView Technical Analysis Gauge Widget -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pivot Points Calculator Section -->
+    <section class="pivot-section" id="pivot-calculator">
+        <div class="main-text" style="margin-top: 3rem;">
+            <h2>Pivot Seviyeleri & Destek/Direnç Hesaplayıcı</h2>
+            <h4>Günlük Fiyat Verileri İle Pivot, Destek ve Direnç Seviyelerini Hesaplayın</h4>
+        </div>
+
+        <div class="pivot-container">
+            <div class="pivot-input-card">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pivot-high">En Yüksek (High)</label>
+                        <input type="number" id="pivot-high" value="312.50" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="pivot-low">En Düşük (Low)</label>
+                        <input type="number" id="pivot-low" value="298.00" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="pivot-close">Kapanış (Close)</label>
+                        <input type="number" id="pivot-close" value="304.50" step="0.1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="pivot-results-grid">
+                <div class="pivot-box resistance">
+                    <span class="p-label">Direnç 3 (R3)</span>
+                    <span class="p-value" id="val-r3">326.00 ₺</span>
+                </div>
+                <div class="pivot-box resistance">
+                    <span class="p-label">Direnç 2 (R2)</span>
+                    <span class="p-value" id="val-r2">319.50 ₺</span>
+                </div>
+                <div class="pivot-box resistance">
+                    <span class="p-label">Direnç 1 (R1)</span>
+                    <span class="p-value" id="val-r1">311.00 ₺</span>
+                </div>
+                <div class="pivot-box main-pivot">
+                    <span class="p-label">⭐ PİVOT NOKTASI (P)</span>
+                    <span class="p-value" id="val-p">305.00 ₺</span>
+                </div>
+                <div class="pivot-box support">
+                    <span class="p-label">Destek 1 (S1)</span>
+                    <span class="p-value" id="val-s1">296.50 ₺</span>
+                </div>
+                <div class="pivot-box support">
+                    <span class="p-label">Destek 2 (S2)</span>
+                    <span class="p-value" id="val-s2">290.50 ₺</span>
+                </div>
+                <div class="pivot-box support">
+                    <span class="p-label">Destek 3 (S3)</span>
+                    <span class="p-value" id="val-s3">282.00 ₺</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Indicators Cheat Sheet -->
+    <section class="indicators-section" id="indikatörler">
+        <div class="main-text" style="margin-top: 3rem;">
+            <h2>İndikatör Rehberi & İpuçları</h2>
+            <h4>Temel Teknik Göstergelerin Kullanımı ve Sinyal Yorumlama</h4>
+        </div>
+
+        <div class="indicators-grid">
+            <div class="indicator-card">
+                <div class="ind-header">
+                    <i class='bx bx-pulse'></i>
+                    <h3>RSI (Göreceli Güç Endeksi)</h3>
+                </div>
+                <p class="ind-desc">Fiyat hareketlerinin hızını ve değişimini ölçen osilatördür.</p>
+                <ul class="ind-bullets">
+                    <li><strong style="color: var(--green-up);">30 Altı (Aşırı Satım):</strong> Fiyatın dip seviyelerde olduğunu ve potansiyel dönüş/AL sinyali ürettiğini gösterir.</li>
+                    <li><strong style="color: var(--red-down);">70 Üstü (Aşırı Alım):</strong> Fiyatın doyuma ulaştığını ve kâr satışı/SAT ihtimalini işaret eder.</li>
+                    <li><strong>Uyumsuzluk (Divergence):</strong> Fiyat yeni dip yaparken RSI yükseliyorsa güçlü Boğa uyumsuzluğu vardır.</li>
+                </ul>
+            </div>
+
+            <div class="indicator-card">
+                <div class="ind-header">
+                    <i class='bx bx-trending-up'></i>
+                    <h3>MACD (Hareketli Ortalama Uyum)</h3>
+                </div>
+                <p class="ind-desc">İki hareketli ortalama arasındaki ilişkiyi gösteren trend takip momentum indikatörüdür.</p>
+                <ul class="ind-bullets">
+                    <li><strong style="color: var(--green-up);">MACD Çizgisi > Sinyal Çizgisi:</strong> Yükseliş momentumu artıyor (AL Sinyali).</li>
+                    <li><strong style="color: var(--red-down);">MACD Çizgisi < Sinyal Çizgisi:</strong> Düşüş baskısı artıyor (SAT Sinyali).</li>
+                    <li><strong>Sıfır Çizgisi Kesişimi:</strong> Sıfırın üzerine çıkış ana trendin yukarı döndüğünü onaylar.</li>
+                </ul>
+            </div>
+
+            <div class="indicator-card">
+                <div class="ind-header">
+                    <i class='bx bx-objects-horizontal-left'></i>
+                    <h3>Bollinger Bantları</h3>
+                </div>
+                <p class="ind-desc">Fiyatın oynaklığını (volatilitesini) ve bağıl yüksek/düşük seviyelerini tanımlar.</p>
+                <ul class="ind-bullets">
+                    <li><strong>Bant Sıkışması (Squeeze):</strong> Bantların daralması çok yakın zamanda şiddetli bir kırılım olacağını gösterir.</li>
+                    <li><strong style="color: var(--green-up);">Alt Banta Temas:</strong> Destek seviyesi olarak çalışabilir, tepki alımları beklenebilir.</li>
+                    <li><strong style="color: var(--red-down);">Üst Banta Temas:</strong> Direnç seviyesidir, düzeltme riski taşır.</li>
+                </ul>
+            </div>
+
+            <div class="indicator-card">
+                <div class="ind-header">
+                    <i class='bx bx-shuffle'></i>
+                    <h3>EMA 50 & EMA 200 (Golden Cross)</h3>
+                </div>
+                <p class="ind-desc">Uzun vadeli trend yönünü ve ana destek/direnç bölgelerini belirleyen üstel hareketli ortalamalardır.</p>
+                <ul class="ind-bullets">
+                    <li><strong style="color: var(--green-up);">Golden Cross (Altın Kesişim):</strong> 50 EMA'nın 200 EMA'yı yukarı kesmesi (Boğa Piyasası Başlangıcı).</li>
+                    <li><strong style="color: var(--red-down);">Death Cross (Ölüm Kesişimi):</strong> 50 EMA'nın 200 EMA'yı aşağı kesmesi (Ayı Piyasası Başlangıcı).</li>
+                </ul>
+            </div>
+        </div>
     </section>
     <section class="formasyon" id="formasyon">
         <div class="main-text">
             <h2>Formasyonlar</h2>
-            <h4>Teknik Analiz Formasyonları</h4>
+            <h4>Teknik Analiz Formasyon Rehberi</h4>
         </div>
-        <ul class="slider">
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon1.jpg" alt="">
+        
+        <!-- Interactive Image Carousel Container -->
+        <div class="carousel-container">
+            <button class="carousel-btn prev-btn" id="carousel-prev" aria-label="Önceki Slide">
+                <i class='bx bx-chevron-left'></i>
+            </button>
+            <button class="carousel-btn next-btn" id="carousel-next" aria-label="Sonraki Slide">
+                <i class='bx bx-chevron-right'></i>
+            </button>
+
+            <div class="carousel-track-wrapper">
+                <ul class="carousel-track" id="carousel-track">
+                    <li class="carousel-slide active">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon1.jpg" alt="Teknik Analiz Formasyonu 1" data-caption="Formasyon 1 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon2.jpg" alt="Teknik Analiz Formasyonu 2" data-caption="Formasyon 2 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon3.jpg" alt="Teknik Analiz Formasyonu 3" data-caption="Formasyon 3 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon4.jpg" alt="Teknik Analiz Formasyonu 4" data-caption="Formasyon 4 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon5.jpg" alt="Teknik Analiz Formasyonu 5" data-caption="Formasyon 5 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon6.jpg" alt="Teknik Analiz Formasyonu 6" data-caption="Formasyon 6 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon7.jpg" alt="Teknik Analiz Formasyonu 7" data-caption="Formasyon 7 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon8.jpg" alt="Teknik Analiz Formasyonu 8" data-caption="Formasyon 8 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon9.jpg" alt="Teknik Analiz Formasyonu 9" data-caption="Formasyon 9 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon10.jpg" alt="Teknik Analiz Formasyonu 10" data-caption="Formasyon 10 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon111.jpg" alt="Teknik Analiz Formasyonu 11" data-caption="Formasyon 11 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon12.jpg" alt="Teknik Analiz Formasyonu 12" data-caption="Formasyon 12 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon13.jpg" alt="Teknik Analiz Formasyonu 13" data-caption="Formasyon 13 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide">
+                        <div class="slide-card">
+                            <img src="img/formasyon-img/formasyon14.jpg" alt="Teknik Analiz Formasyonu 14" data-caption="Formasyon 14 - Teknik Grafik Deseni">
+                            <div class="zoom-badge"><i class='bx bx-search-alt-2'></i> Büyük Görünüm İçin Tıklayın</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Controls Bar: Dots, Counter & AutoPlay Toggle -->
+            <div class="carousel-controls-bar">
+                <div class="carousel-counter">
+                    Formasyon <span id="current-slide-num">1</span> / <span id="total-slide-num">14</span>
                 </div>
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon2.jpg" alt="">
+                
+                <div class="carousel-dots" id="carousel-dots">
+                    <!-- Generated by JS -->
                 </div>
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon3.jpg" alt="">
-                </div>            
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon4.jpg" alt="">
-                </div>            
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon5.jpg" alt="">
-                </div>               
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon6.jpg" alt="">
-                </div>               
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon7.jpg" alt="">
-                </div>              
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon8.jpg" alt="">
-                </div>               
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon9.jpg" alt="">
-                </div>               
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon10.jpg" alt="">
-                </div>              
-             </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon111.jpg" alt="">
-                </div>               
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon12.jpg" alt="">
-                </div>               
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon13.jpg" alt="">
-                </div>               
-            </li>
-            <li class="slide">
-                <div class="slide-img">
-                    <img src="img/formasyon-img/formasyon14.jpg" alt="">
-                </div>               
-            </li>
-        </ul>
+
+                <button class="autoplay-toggle-btn" id="autoplay-toggle" title="Otomatik Oynatmayı Durdur/Başlat">
+                    <i class='bx bx-pause' id="autoplay-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Lightbox Fullscreen Image Modal -->
+        <div id="image-lightbox" class="lightbox-modal">
+            <span class="lightbox-close" id="lightbox-close">&times;</span>
+            <div class="lightbox-wrapper">
+                <img class="lightbox-content" id="lightbox-img" alt="Büyük Görünüm">
+                <div id="lightbox-caption" class="lightbox-caption"></div>
+            </div>
+        </div>
     </section>  
     <!--contact-->
     <section class="contact" id="contact">

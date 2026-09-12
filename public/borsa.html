@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borsa & Piyasa Terminali - Tolga Oktar</title>
+    
+    <!-- Custom Terminal Style -->
+    <link rel="stylesheet" type="text/css" href="./css/borsa-style.css">
+    
+    <!-- Icons & Fonts -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- TradingView JS SDK -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="index.html" class="logo">Tolga Oktar</a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+        <ul class="navbar">
+            <li><a href="index.html">Anasayfa</a></li>
+            <li><a href="borsa.html" class="active">Borsa Takip</a></li>
+            <li><a href="teknikanaliz.html">Teknik Analiz</a></li>
+            <li><a href="index.html#hakkimda">Hakkımda</a></li>
+            <li><a href="index.html#calismalarim">Çalışmalarım</a></li>
+            <li><a href="index.html#contact">İletişim</a></li>
+        </ul>
+    </header>
+
+    <!-- Terminal Main Container -->
+    <main class="terminal-container">
+
+        <!-- Market Live / Weekend Status Banner -->
+        <div id="market-status-banner"></div>
+
+        <!-- Top Live Ticker Bar (TradingView Live Widget) -->
+        <section class="ticker-bar-wrapper">
+            <div class="tradingview-widget-container" style="border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border);">
+              <div class="tradingview-widget-container__widget"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+              {
+              "symbols": [
+                {
+                  "proName": "BIST:XU100",
+                  "title": "BİST 100"
+                },
+                {
+                  "proName": "BIST:XU030",
+                  "title": "BİST 30"
+                },
+                {
+                  "proName": "FX_IDC:USDTRY",
+                  "title": "USD / TRY"
+                },
+                {
+                  "proName": "FX_IDC:EURTRY",
+                  "title": "EUR / TRY"
+                },
+                {
+                  "proName": "OANDA:XAUUSD",
+                  "title": "ONS ALTIN"
+                },
+                {
+                  "proName": "TVC:UKOIL",
+                  "title": "BRENT PETROL"
+                },
+                {
+                  "proName": "FOREXCOM:SPXUSD",
+                  "title": "S&P 500"
+                },
+                {
+                  "proName": "NASDAQ:IXIC",
+                  "title": "NASDAQ"
+                },
+                {
+                  "proName": "BIST:THYAO",
+                  "title": "THYAO"
+                },
+                {
+                  "proName": "BIST:GARAN",
+                  "title": "GARAN"
+                },
+                {
+                  "proName": "BIST:EREGL",
+                  "title": "EREGL"
+                },
+                {
+                  "proName": "BIST:ASELS",
+                  "title": "ASELS"
+                }
+              ],
+              "showSymbolLogo": true,
+              "isTransparent": false,
+              "displayMode": "adaptive",
+              "colorTheme": "dark",
+              "locale": "tr"
+            }
+              </script>
+            </div>
+        </section>
+
+        <!-- Dashboard Grid Layout -->
+        <div class="dashboard-grid">
+            
+            <!-- Left / Main Column -->
+            <div class="main-column">
+
+                <!-- TradingView Terminal Chart Card -->
+                <div class="terminal-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class='bx bx-line-chart'></i> İnteraktif Terminal Grafiği
+                        </div>
+                        <div class="card-controls">
+                            <div class="symbol-quick-bar">
+                                <button class="sym-btn active" data-symbol="BIST:THYAO">THYAO</button>
+                                <button class="sym-btn" data-symbol="BIST:GARAN">GARAN</button>
+                                <button class="sym-btn" data-symbol="BIST:EREGL">EREGL</button>
+                                <button class="sym-btn" data-symbol="BIST:ASELS">ASELS</button>
+                                <button class="sym-btn" data-symbol="BIST:XU100">BİST 100</button>
+                                <button class="sym-btn" data-symbol="NASDAQ:NVDA">NVDA</button>
+                                <button class="sym-btn" data-symbol="NASDAQ:AAPL">AAPL</button>
+                                <button class="sym-btn" data-symbol="FX_IDC:USDTRY">USD/TRY</button>
+                                <button class="sym-btn" data-symbol="OANDA:XAUUSD">ONS ALTIN</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding: 10px;">
+                        <div class="chart-container" id="tv-chart-wrapper">
+                            <div id="tradingview_terminal_chart" style="height:100%;width:100%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kurum Hedef Fiyat & Değişimler Card -->
+                <div class="terminal-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class='bx bx-target-lock'></i> Kurum Hedef Fiyatları & Günlük Değişimler
+                        </div>
+                        <div class="card-controls">
+                            <input type="text" id="target-search" class="search-input" placeholder="Hisse / Kurum Ara...">
+                            <button class="btn-filter target-filter-btn active" data-filter="ALL">Tümü</button>
+                            <button class="btn-filter target-filter-btn" data-filter="BIST">BİST</button>
+                            <button class="btn-filter target-filter-btn" data-filter="GLOBAL">Global</button>
+                            <button class="btn-filter target-filter-btn" data-filter="HIGH_POTENTIAL">%30+ Potansiyel</button>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Hisse / Şirket</th>
+                                        <th>Öneren Aracı Kurum</th>
+                                        <th>Tavsiye</th>
+                                        <th>Hedef Fiyat</th>
+                                        <th>Cari Fiyat</th>
+                                        <th>Potansiyel</th>
+                                        <th>Günlük Değişim</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="target-table-body">
+                                    <!-- Rendered dynamically by borsa.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Net Para Giriş / Çıkış & Yabancı Payı Card -->
+                <div class="terminal-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class='bx bx-pie-chart-alt-2'></i> Para Giriş / Çıkışı & Yabancı Payı Takibi
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="flow-grid">
+                            <!-- Net Para Girişi -->
+                            <div class="flow-box">
+                                <div class="flow-title">
+                                    <span>EN ÇOK PARA GİRİŞİ</span>
+                                    <span style="color: var(--green-up);">🟢 BİST 100</span>
+                                </div>
+                                <div class="flow-list">
+                                    <div class="flow-row">
+                                        <span>THYAO</span>
+                                        <span style="color: var(--green-up); font-weight:700;">+185.4 M ₺</span>
+                                    </div>
+                                    <div class="flow-row">
+                                        <span>GARAN</span>
+                                        <span style="color: var(--green-up); font-weight:700;">+142.1 M ₺</span>
+                                    </div>
+                                    <div class="flow-row">
+                                        <span>ASELS</span>
+                                        <span style="color: var(--green-up); font-weight:700;">+98.6 M ₺</span>
+                                    </div>
+                                    <div class="flow-row">
+                                        <span>KCHOL</span>
+                                        <span style="color: var(--green-up); font-weight:700;">+74.2 M ₺</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Net Para Çıkışı -->
+                            <div class="flow-box">
+                                <div class="flow-title">
+                                    <span>EN ÇOK PARA ÇIKIŞI</span>
+                                    <span style="color: var(--red-down);">🔴 BİST 100</span>
+                                </div>
+                                <div class="flow-list">
+                                    <div class="flow-row">
+                                        <span>TUPRS</span>
+                                        <span style="color: var(--red-down); font-weight:700;">-65.8 M ₺</span>
+                                    </div>
+                                    <div class="flow-row">
+                                        <span>EREGL</span>
+                                        <span style="color: var(--red-down); font-weight:700;">-42.3 M ₺</span>
+                                    </div>
+                                    <div class="flow-row">
+                                        <span>AKBNK</span>
+                                        <span style="color: var(--red-down); font-weight:700;">-38.1 M ₺</span>
+                                    </div>
+                                    <div class="flow-row">
+                                        <span>SAHOL</span>
+                                        <span style="color: var(--red-down); font-weight:700;">-22.5 M ₺</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Yabancı Payı Artanlar -->
+                            <div class="flow-box">
+                                <div class="flow-title">
+                                    <span>YABANCI PAYI ARTANLAR</span>
+                                    <span style="color: var(--main-color);">📊 Haftalık</span>
+                                </div>
+                                <div class="flow-list">
+                                    <div class="flow-row">
+                                        <span>SAHOL</span>
+                                        <span style="color: var(--main-color); font-weight:700;">%48.2 (+0.85%)</span>
+                                    </div>
+                                    <div class="flow-row">
+                                        <span>BIMAS</span>
+                                        <span style="color: var(--main-color); font-weight:700;">%52.4 (+0.62%)</span>
+                                    </div>
+                                    <div class="flow-row">
+                                        <span>THYAO</span>
+                                        <span style="color: var(--main-color); font-weight:700;">%38.6 (+0.45%)</span>
+                                    </div>
+                                    <div class="flow-row">
+                                        <span>MGROS</span>
+                                        <span style="color: var(--main-color); font-weight:700;">%41.1 (+0.38%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right / Side Column -->
+            <div class="side-column">
+
+                <!-- KAP Bildirimleri & Haber Akışı Card -->
+                <div class="terminal-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class='bx bx-news'></i> KAP Bildirimleri & Akış
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="news-list">
+                            <div class="news-item">
+                                <div class="news-meta">
+                                    <span class="news-tag">KAP</span>
+                                    <span class="news-time">13:15</span>
+                                </div>
+                                <div class="news-headline">THYAO - 2026/08 Yolcu ve Kargo Trafik Sonuçları Açıklandı (Yolcu sayısı %6.4 arttı).</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-meta">
+                                    <span class="news-tag">MAKRO</span>
+                                    <span class="news-time">12:45</span>
+                                </div>
+                                <div class="news-headline">TCMB Haftalık Para ve Banka İstatistikleri Yayımlandı (Brüt rezervler 152 Milyar $).</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-meta">
+                                    <span class="news-tag">KAP</span>
+                                    <span class="news-time">11:30</span>
+                                </div>
+                                <div class="news-headline">ASELS - Yeni Uluslararası Savunma Sözleşmesi İmzalandı (42.5 Milyon USD).</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-meta">
+                                    <span class="news-tag">GLOBAL</span>
+                                    <span class="news-time">10:15</span>
+                                </div>
+                                <div class="news-headline">Fed Üyelerinden Yumuşak İniş ve Faiz İndirimi Sinyali.</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-meta">
+                                    <span class="news-tag">KAP</span>
+                                    <span class="news-time">09:40</span>
+                                </div>
+                                <div class="news-headline">GARAN - Temettü Dağıtım Tarihi Ve Oranı Kesinleşti.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Economic Calendar Card (English) -->
+                <div class="terminal-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class='bx bx-calendar-event'></i> Ekonomik Takvim
+                        </div>
+                        <div class="card-controls">
+                            <button class="btn-filter cal-filter-btn active" data-filter="ALL">All</button>
+                            <button class="btn-filter cal-filter-btn" data-filter="TR">TR</button>
+                            <button class="btn-filter cal-filter-btn" data-filter="GLOBAL">Global</button>
+                            <button class="btn-filter cal-filter-btn" data-filter="HIGH">🔴 High Impact</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="calendar-list" id="calendar-list">
+                            <!-- Rendered dynamically in English by borsa.js -->
+                        </div>
+
+                        <!-- TradingView Official Live Economic Calendar Widget (English) -->
+                        <div class="tradingview-widget-container" style="border-radius: 8px; overflow: hidden; border-top: 1px solid var(--card-border); padding-top: 10px; margin-top: 10px;">
+                          <div style="font-size: 0.78rem; font-weight: 700; color: var(--main-color); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                            <span><i class='bx bx-broadcast'></i> Live Global Calendar (TradingView)</span>
+                          </div>
+                          <div class="tradingview-widget-container__widget"></div>
+                          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                          {
+                          "colorTheme": "dark",
+                          "isTransparent": true,
+                          "width": "100%",
+                          "height": "340",
+                          "locale": "en",
+                          "importanceFilter": "-1,0,1"
+                        }
+                          </script>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trader Calculator Tool Card -->
+                <div class="terminal-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class='bx bx-calculator'></i> Hedef Potansiyel & Risk Hesaplayıcı
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="calc-form">
+                            <div class="form-group">
+                                <label for="calc-buy-price">Alış Fiyatı</label>
+                                <input type="number" id="calc-buy-price" value="300" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-target-price">Hedef Fiyat</label>
+                                <input type="number" id="calc-target-price" value="420" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-stop-price">Stop-Loss Fiyatı</label>
+                                <input type="number" id="calc-stop-price" value="270" step="0.5">
+                            </div>
+
+                            <div class="calc-result-box">
+                                <div class="res-item">
+                                    <div class="res-label">Potansiyel Getiri</div>
+                                    <div class="res-val" id="res-pot-pct">%40.00</div>
+                                </div>
+                                <div class="res-item">
+                                    <div class="res-label">Risk / Ödül (R:R)</div>
+                                    <div class="res-val" id="res-risk-ratio" style="color: var(--green-up);">1 : 4.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© Copyright 2026 Biricik Eşim | Tolga Oktar Borsa & Piyasa Terminali</p>
+    </footer>
+
+    <!-- Legal Disclaimer Popup Modal -->
+    <div id="disclaimer-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class='bx bx-shield-quarter'></i> Yasal Uyarı ve Bilgilendirme
+                </div>
+            </div>
+            <div class="modal-body">
+                <h4 style="color: var(--h1-color); margin-bottom: 12px; font-size: 1.1rem;">Hoş geldiniz</h4>
+                
+                <p>Sermaye piyasalarında yapacağınız işlemler sonucunda kar elde edebileceğiniz gibi zarar riskiniz de bulunmaktadır. Bu nedenle, işlem yapmaya karar vermeden önce, piyasada karşılaşabileceğiniz riskleri anlamanız, mali durumunuzu ve kısıtlarınızı dikkate alarak karar vermeniz gerekmektedir.</p>
+                
+                <p>Bu internet sitesindeki tüm sayfalarda veya bağlı sosyal medya hesaplarında yer alan ücretsiz temel/teknik analiz sonucu ortaya çıkan hisse senedi hedef fiyatları, model portföyler, hisse önerileri ve açıklamalar kesinlikle yatırım danışmanlığı kapsamında değildir. Yatırım danışmanlığı hizmeti, SPK tarafından yetkilendirilmiş kuruluşlar tarafından kişilerin risk ve getiri tercihleri dikkate alınarak kişiye özel sunulmaktadır. Bu alanda yetkilendirilmiş kurumlar <a href="https://www.spk.gov.tr" target="_blank" rel="noopener" style="color: var(--main-color); text-decoration: underline;">www.spk.gov.tr</a> adresinde bulunabilir.</p>
+
+                <p>Ayrıca üye olan herkes <strong>"Kişisel Verilerin Korunması Kanunu"</strong> beyanımızı okumuş ve kabul etmiştir. Açılacak herhangi hukuki bir dava neticesinde platformumuz yetkili merciler ile gerekli uzlaşmayı sağlayacaktır, lakin zorunlu şartlar ve resmi kurumlar dışında hiçbir yerde Kişisel Verilerinizin paylaşılmayacağını da beyan ederiz.</p>
+
+                <p>İlgili grup/internet sitesi/kanal hesabı bir yatırım kuruluşu değildir. Burada gördükleriniz herhangi bir varlık için alım/satım yönlendirici nitelikte tavsiye veya yorum niteliğinde paylaşımlar değildir, sadece yatırımcıların kendisini geliştirmesi ve bu piyasada bilinçli yatırımcıların çoğalması maksadıyla bazı banka ve aracı kurumların raporlarını ve hedef fiyatlarını paylaşmaktadır.</p>
+
+                <p>Finansal okuryazarlığa katkı sunmak, neye/neden yatırım yapıldığını tam manasıyla okuyabilmek için işin profesyonellerinin bakış açılarını, değerleme modellerini ve bir şirketi değerlerken dikkate aldıkları kriterleri göz önünde bulundurabilirsiniz, lakin yalnızca bu raporlar veya analizlere güvenerek yatırım yapmak sizi maddi kayıplara uğratabilir. Bu bilgiler/paylaşımlar kurum&banka raporları olmakla birlikte Hedef Fiyat Platformu kesinlikle alım/satım için bir tavsiye veya yorum yapmamaktadır ve yine kesinlikle tavsiye niteliği taşımamaktadır.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-accept-disclaimer" class="btn-accept">
+                    <i class='bx bx-check-circle'></i> Okudum, Anladım ve Kabul Ediyorum
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Terminal Logic -->
+    <script src="./js/borsa.js"></script>
+
+</body>
+</html>

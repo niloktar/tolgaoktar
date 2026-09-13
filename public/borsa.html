@@ -26,8 +26,13 @@
         <div class="bx bx-menu" id="menu-icon"></div>
         <ul class="navbar">
             <li><a href="index.html">Anasayfa</a></li>
-            <li><a href="borsa.html" class="active">Borsa Takip</a></li>
-            <li><a href="teknikanaliz.html">Teknik Analiz</a></li>
+            <li class="nav-dropdown">
+                <button class="nav-dropdown-toggle active" type="button">Piyasa <i class='bx bx-chevron-down'></i></button>
+                <ul class="nav-submenu">
+                    <li><a href="borsa.html" class="active">Borsa Takip</a></li>
+                    <li><a href="teknikanaliz.html">Teknik Analiz</a></li>
+                </ul>
+            </li>
             <li><a href="index.html#hakkimda">Hakkımda</a></li>
             <li><a href="index.html#calismalarim">Çalışmalarım</a></li>
             <li><a href="index.html#contact">İletişim</a></li>
@@ -270,23 +275,6 @@
             <!-- Right / Side Column -->
             <div class="side-column">
 
-                <!-- KAP Notifications Card -->
-                <div class="terminal-card kap-card">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <i class='bx bx-news'></i> KAP BİLDİRİMLERİ
-                        </div>
-                        <span class="calendar-live-badge">CANLI</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="kap-range" id="kap-range">Son 15 Gün</div>
-                        <div class="kap-list" id="kap-list" aria-live="polite" aria-busy="true">
-                            <div class="kap-state">Bildirimler yükleniyor…</div>
-                        </div>
-                        <a class="kap-all-link" href="https://www.kap.org.tr/tr/bildirim-sorgu?disclosureClass=ALL" target="_blank" rel="noopener noreferrer">Tümünü Gör <i class='bx bx-right-arrow-alt'></i></a>
-                    </div>
-                </div>
-
                 <!-- Daily Economic Calendar Card -->
                 <div class="terminal-card economic-calendar-card">
                     <div class="card-header">
@@ -315,6 +303,23 @@
                             }
                             </script>
                         </div>
+                    </div>
+                </div>
+
+                <!-- KAP Notifications Card -->
+                <div class="terminal-card kap-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class='bx bx-news'></i> KAP BİLDİRİMLERİ
+                        </div>
+                        <span class="calendar-live-badge">CANLI</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="kap-range" id="kap-range">Son 15 Gün</div>
+                        <div class="kap-list" id="kap-list" aria-live="polite" aria-busy="true">
+                            <div class="kap-state">Bildirimler yükleniyor…</div>
+                        </div>
+                        <a class="kap-all-link" href="https://www.kap.org.tr/tr/bildirim-sorgu?disclosureClass=ALL" target="_blank" rel="noopener noreferrer">Tümünü Gör <i class='bx bx-right-arrow-alt'></i></a>
                     </div>
                 </div>
 

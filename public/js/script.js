@@ -21,6 +21,23 @@ if (menu && navbar) {
     };
 }
 
+document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.addEventListener('click', event => {
+        event.stopPropagation();
+        const dropdown = toggle.closest('.nav-dropdown');
+        const isOpen = dropdown.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+});
+
+document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-dropdown.open').forEach(dropdown => {
+        dropdown.classList.remove('open');
+        dropdown.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+});
+
 /* ==========================================================================
    Formasyon Interactive Image Carousel & Lightbox Logic
    ========================================================================== */
@@ -342,5 +359,4 @@ document.addEventListener("DOMContentLoaded", () => {
         calculatePivotPoints();
     }
 });
-
 

@@ -20,6 +20,23 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.addEventListener('click', event => {
+            event.stopPropagation();
+            const dropdown = toggle.closest('.nav-dropdown');
+            const isOpen = dropdown.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', String(isOpen));
+        });
+    });
+
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.nav-dropdown.open').forEach(dropdown => {
+            dropdown.classList.remove('open');
+            dropdown.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+        });
+    });
+
     // 0. Market Status Banner (Weekend & Session Check)
     const marketStatusBanner = document.getElementById('market-status-banner');
     if (marketStatusBanner) {

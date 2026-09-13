@@ -125,14 +125,14 @@
                         </div>
                         <div class="card-controls">
                             <div class="symbol-quick-bar">
-                                <button class="sym-btn active" data-symbol="BIST:THYAO">THYAO</button>
+                                <button class="sym-btn" data-symbol="BIST:THYAO">THYAO</button>
                                 <button class="sym-btn" data-symbol="BIST:GARAN">GARAN</button>
                                 <button class="sym-btn" data-symbol="BIST:EREGL">EREGL</button>
                                 <button class="sym-btn" data-symbol="BIST:ASELS">ASELS</button>
                                 <button class="sym-btn" data-symbol="BIST:XU100">BİST 100</button>
                                 <button class="sym-btn" data-symbol="NASDAQ:NVDA">NVDA</button>
                                 <button class="sym-btn" data-symbol="NASDAQ:AAPL">AAPL</button>
-                                <button class="sym-btn" data-symbol="FX_IDC:USDTRY">USD/TRY</button>
+                                <button class="sym-btn active" data-symbol="FX_IDC:USDTRY">USD/TRY</button>
                                 <button class="sym-btn" data-symbol="OANDA:XAUUSD">ONS ALTIN</button>
                             </div>
                         </div>
@@ -144,38 +144,49 @@
                     </div>
                 </div>
 
-                <!-- Kurum Hedef Fiyat & Değişimler Card -->
-                <div class="terminal-card">
+                <!-- Live BIST Market Data & Analyst Forecast Links -->
+                <div class="terminal-card live-market-card">
                     <div class="card-header">
                         <div class="card-title">
-                            <i class='bx bx-target-lock'></i> Kurum Hedef Fiyatları & Günlük Değişimler
+                            <i class='bx bx-line-chart-down'></i> Canlı BİST Fiyatları & Günlük Değişimler
                         </div>
-                        <div class="card-controls">
-                            <input type="text" id="target-search" class="search-input" placeholder="Hisse / Kurum Ara...">
-                            <button class="btn-filter target-filter-btn active" data-filter="ALL">Tümü</button>
-                            <button class="btn-filter target-filter-btn" data-filter="BIST">BİST</button>
-                            <button class="btn-filter target-filter-btn" data-filter="GLOBAL">Global</button>
-                            <button class="btn-filter target-filter-btn" data-filter="HIGH_POTENTIAL">%30+ Potansiyel</button>
-                        </div>
+                        <span class="calendar-live-badge">CANLI</span>
                     </div>
-                    <div class="card-body" style="padding: 0;">
-                        <div class="table-responsive">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Hisse / Şirket</th>
-                                        <th>Öneren Aracı Kurum</th>
-                                        <th>Tavsiye</th>
-                                        <th>Hedef Fiyat</th>
-                                        <th>Cari Fiyat</th>
-                                        <th>Potansiyel</th>
-                                        <th>Günlük Değişim</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="target-table-body">
-                                    <!-- Rendered dynamically by borsa.js -->
-                                </tbody>
-                            </table>
+                    <div class="card-body live-market-body">
+                        <div class="tradingview-widget-container live-market-widget">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tradingview-widget-copyright">
+                                <a href="https://tr.tradingview.com/markets/stocks-turkey/" rel="noopener nofollow" target="_blank"><span class="blue-text">Türkiye hisseleri</span></a>
+                                <span class="trademark"> — TradingView</span>
+                            </div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                            {
+                              "width": "100%",
+                              "height": 550,
+                              "defaultColumn": "performance",
+                              "defaultScreen": "most_capitalized",
+                              "showToolbar": true,
+                              "locale": "tr",
+                              "market": "turkey",
+                              "colorTheme": "dark",
+                              "isTransparent": true
+                            }
+                            </script>
+                        </div>
+                        <div class="analyst-forecast-strip">
+                            <div>
+                                <strong>Analist hedef fiyatları</strong>
+                                <span>TradingView üzerindeki güncel FactSet konsensüsünü açar.</span>
+                            </div>
+                            <div class="forecast-links" aria-label="Analist hedef fiyat bağlantıları">
+                                <a href="https://tr.tradingview.com/symbols/BIST-THYAO/forecast-price-target/" target="_blank" rel="noopener nofollow">THYAO</a>
+                                <a href="https://tr.tradingview.com/symbols/BIST-GARAN/forecast-price-target/" target="_blank" rel="noopener nofollow">GARAN</a>
+                                <a href="https://tr.tradingview.com/symbols/BIST-EREGL/forecast-price-target/" target="_blank" rel="noopener nofollow">EREGL</a>
+                                <a href="https://tr.tradingview.com/symbols/BIST-ASELS/forecast-price-target/" target="_blank" rel="noopener nofollow">ASELS</a>
+                                <a href="https://tr.tradingview.com/symbols/BIST-KCHOL/forecast-price-target/" target="_blank" rel="noopener nofollow">KCHOL</a>
+                                <a href="https://tr.tradingview.com/symbols/BIST-BIMAS/forecast-price-target/" target="_blank" rel="noopener nofollow">BIMAS</a>
+                                <a href="https://tr.tradingview.com/symbols/BIST-TUPRS/forecast-price-target/" target="_blank" rel="noopener nofollow">TUPRS</a>
+                            </div>
                         </div>
                     </div>
                 </div>

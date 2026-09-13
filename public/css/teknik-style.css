@@ -674,6 +674,48 @@ footer ul {
     box-shadow: 0 0 10px rgba(24, 226, 255, 0.4);
 }
 
+.tv-external-chart-state {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    text-align: center;
+    background: radial-gradient(circle at top, rgba(24, 226, 255, 0.08), transparent 55%), #020312;
+}
+
+.tv-external-chart-state > i {
+    color: var(--main-color);
+    font-size: 2rem;
+}
+
+.tv-external-chart-state strong {
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.tv-external-chart-state span {
+    max-width: 520px;
+    color: var(--second-color);
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+.tv-external-chart-state a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    padding: 8px 13px;
+    border-radius: 8px;
+    color: #020312;
+    background: var(--main-color);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
 /* Pivot Points Calculator */
 .pivot-container {
     max-width: 1000px;

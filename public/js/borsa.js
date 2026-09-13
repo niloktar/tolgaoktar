@@ -70,109 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 1. DATA: Kurum Hedef Fiyatları & Değişim Verileri
-    const targetPriceData = [
-        { symbol: 'THYAO', name: 'Türk Hava Yolları', market: 'BIST', institution: 'Garanti BBVA Yatırım', rating: 'AL', targetPrice: 420.00, currentPrice: 304.50, changePct: 2.15, date: 'Son Rapor' },
-        { symbol: 'GARAN', name: 'Garanti BBVA', market: 'BIST', institution: 'İş Yatırım', rating: 'AL', targetPrice: 165.00, currentPrice: 128.40, changePct: 1.82, date: 'Son Rapor' },
-        { symbol: 'EREGL', name: 'Ereğli Demir Çelik', market: 'BIST', institution: 'Ak Yatırım', rating: 'TUT', targetPrice: 62.50, currentPrice: 51.20, changePct: -0.65, date: 'Son Rapor' },
-        { symbol: 'ASELS', name: 'Aselsan Elektronik', market: 'BIST', institution: 'Yapı Kredi Yatırım', rating: 'AL', targetPrice: 88.00, currentPrice: 66.80, changePct: 3.40, date: 'Son Rapor' },
-        { symbol: 'KCHOL', name: 'Koç Holding', market: 'BIST', institution: 'HSBC', rating: 'AL', targetPrice: 285.00, currentPrice: 215.00, changePct: 0.95, date: 'Son Rapor' },
-        { symbol: 'BIMAS', name: 'BİM Mağazacılık', market: 'BIST', institution: 'Oyak Yatırım', rating: 'AL', targetPrice: 680.00, currentPrice: 510.00, changePct: 1.10, date: 'Son Rapor' },
-        { symbol: 'TUPRS', name: 'Tüpraş', market: 'BIST', institution: 'Deniz Yatırım', rating: 'AL', targetPrice: 230.00, currentPrice: 172.30, changePct: -1.20, date: 'Son Rapor' },
-        { symbol: 'NVDA', name: 'Nvidia Corp.', market: 'GLOBAL', institution: 'Goldman Sachs', rating: 'AL', targetPrice: 165.00, currentPrice: 119.20, changePct: 4.15, date: 'Son Rapor' },
-        { symbol: 'AAPL', name: 'Apple Inc.', market: 'GLOBAL', institution: 'Morgan Stanley', rating: 'AL', targetPrice: 260.00, currentPrice: 222.80, changePct: 0.85, date: 'Son Rapor' },
-        { symbol: 'MSFT', name: 'Microsoft Corp.', market: 'GLOBAL', institution: 'JPMorgan', rating: 'AL', targetPrice: 510.00, currentPrice: 430.50, changePct: 1.45, date: 'Son Rapor' },
-        { symbol: 'TSLA', name: 'Tesla Inc.', market: 'GLOBAL', institution: 'Barclays', rating: 'TUT', targetPrice: 225.00, currentPrice: 210.10, changePct: -2.30, date: 'Son Rapor' },
-        { symbol: 'AMZN', name: 'Amazon.com Inc.', market: 'GLOBAL', institution: 'Bank of America', rating: 'AL', targetPrice: 240.00, currentPrice: 186.40, changePct: 1.95, date: 'Son Rapor' }
-    ];
-
-    // Render Target Price Table
-    const targetTableBody = document.getElementById('target-table-body');
-    const targetSearchInput = document.getElementById('target-search');
-    const targetFilterBtns = document.querySelectorAll('.target-filter-btn');
-
-    let currentTargetMarket = 'ALL';
-
-    function renderTargetPrices() {
-        if (!targetTableBody) return;
-
-        const query = (targetSearchInput ? targetSearchInput.value : '').toLowerCase().trim();
-
-        const filtered = targetPriceData.filter(item => {
-            const matchesQuery = item.symbol.toLowerCase().includes(query) ||
-                                 item.name.toLowerCase().includes(query) ||
-                                 item.institution.toLowerCase().includes(query);
-            
-            if (!matchesQuery) return false;
-
-            if (currentTargetMarket === 'BIST') return item.market === 'BIST';
-            if (currentTargetMarket === 'GLOBAL') return item.market === 'GLOBAL';
-            if (currentTargetMarket === 'HIGH_POTENTIAL') {
-                const potential = ((item.targetPrice - item.currentPrice) / item.currentPrice) * 100;
-                return potential >= 30;
-            }
-            return true;
-        });
-
-        if (filtered.length === 0) {
-            targetTableBody.innerHTML = `
-                <tr>
-                    <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 20px;">
-                        Aramanıza uygun kurum hedef fiyat kaydı bulunamadı.
-                    </td>
-                </tr>`;
-            return;
-        }
-
-        targetTableBody.innerHTML = filtered.map(item => {
-            const upsidePct = (((item.targetPrice - item.currentPrice) / item.currentPrice) * 100).toFixed(1);
-            const changeClass = item.changePct >= 0 ? 'up' : 'down';
-            const changeIcon = item.changePct >= 0 ? 'bx-caret-up' : 'bx-caret-down';
-            
-            let ratingClass = 'rating-buy';
-            if (item.rating === 'TUT' || item.rating === 'HOLD') ratingClass = 'rating-hold';
-            if (item.rating === 'SAT' || item.rating === 'SELL') ratingClass = 'rating-sell';
-
-            const currencySymbol = item.market === 'BIST' ? '₺' : '$';
-
-            return `
-                <tr>
-                    <td>
-                        <div class="stock-badge">
-                            <span class="stock-symbol">${item.symbol}</span>
-                            <span class="stock-name">${item.name}</span>
-                        </div>
-                    </td>
-                    <td><span class="institution-name">${item.institution}</span></td>
-                    <td><span class="rating-badge ${ratingClass}">${item.rating}</span></td>
-                    <td><strong>${currencySymbol}${item.targetPrice.toFixed(2)}</strong></td>
-                    <td>${currencySymbol}${item.currentPrice.toFixed(2)}</td>
-                    <td><span class="upside-pot">+%${upsidePct}</span></td>
-                    <td>
-                        <span class="ticker-change ${changeClass}">
-                            <i class='bx ${changeIcon}'></i> %${Math.abs(item.changePct).toFixed(2)}
-                        </span>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    }
-
-    if (targetSearchInput) {
-        targetSearchInput.addEventListener('input', renderTargetPrices);
-    }
-
-    targetFilterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            targetFilterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentTargetMarket = btn.dataset.filter;
-            renderTargetPrices();
-        });
-    });
-
-    renderTargetPrices();
-
     // Latest company disclosures from the server-side KAP feed.
     const kapList = document.getElementById('kap-list');
     const kapRange = document.getElementById('kap-range');
@@ -218,6 +115,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadTradingViewChart(symbol) {
         if (!tvContainer) return;
 
+        if (symbol.startsWith('BIST:')) {
+            const ticker = symbol.split(':')[1];
+            const chartUrl = `https://tr.tradingview.com/chart/?symbol=${encodeURIComponent(symbol)}`;
+            tvContainer.innerHTML = `
+                <div class="tv-external-chart-state">
+                    <i class='bx bx-link-external' aria-hidden="true"></i>
+                    <strong>${ticker} tam grafiği TradingView'de açılır</strong>
+                    <span>BIST mum verileri TradingView tarafından harici sitelerde yayınlanmıyor.</span>
+                    <a href="${chartUrl}" target="_blank" rel="noopener nofollow">TradingView'de Aç <i class='bx bx-right-arrow-alt'></i></a>
+                </div>`;
+            return;
+        }
+
         tvContainer.innerHTML = `<div id="tradingview_terminal_chart" style="height:100%;width:100%;"></div>`;
 
         if (typeof TradingView !== 'undefined') {
@@ -247,9 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initial TV Chart Load
+    // Initial TV Chart Load (BIST chart embeds are restricted by TradingView.)
     setTimeout(() => {
-        loadTradingViewChart('BIST:THYAO');
+        loadTradingViewChart('FX_IDC:USDTRY');
     }, 500);
 
     // 4. Calculator Logic

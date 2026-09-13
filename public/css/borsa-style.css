@@ -369,6 +369,48 @@ header {
     background: #000000;
 }
 
+.tv-external-chart-state {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    text-align: center;
+    background: radial-gradient(circle at top, rgba(24, 226, 255, 0.08), transparent 55%), #020312;
+}
+
+.tv-external-chart-state > i {
+    color: var(--main-color);
+    font-size: 2rem;
+}
+
+.tv-external-chart-state strong {
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.tv-external-chart-state span {
+    max-width: 460px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.tv-external-chart-state a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    padding: 8px 13px;
+    border-radius: 8px;
+    color: #020312;
+    background: var(--main-color);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
 /* Tables Styling */
 .table-responsive {
     width: 100%;
@@ -455,6 +497,76 @@ header {
 .upside-pot {
     font-weight: 700;
     color: var(--green-up);
+}
+
+/* Live BIST data and analyst forecast links */
+.live-market-body {
+    padding: 0;
+}
+
+.live-market-widget {
+    min-height: 550px;
+    overflow: hidden;
+}
+
+.analyst-forecast-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 15px 16px;
+    border-top: 1px solid var(--card-border);
+    background: rgba(18, 23, 36, 0.7);
+}
+
+.analyst-forecast-strip > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.analyst-forecast-strip strong {
+    color: var(--text-color);
+    font-size: 0.86rem;
+}
+
+.analyst-forecast-strip span {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+}
+
+.forecast-links {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.forecast-links a {
+    padding: 5px 9px;
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    color: var(--main-color);
+    font-size: 0.72rem;
+    font-weight: 700;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.forecast-links a:hover {
+    border-color: var(--main-color);
+    background: rgba(24, 226, 255, 0.08);
+}
+
+@media (max-width: 720px) {
+    .analyst-forecast-strip {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .forecast-links {
+        justify-content: flex-start;
+    }
 }
 
 /* Economic Calendar */

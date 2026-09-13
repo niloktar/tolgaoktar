@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ----------------------------------------------------------------------
        TradingView Interactive Chart & Technical Gauge Dynamic Switcher
        ---------------------------------------------------------------------- */
-    let currentSymbol = "BIST:THYAO";
+    let currentSymbol = "FX_IDC:USDTRY";
     let currentInterval = "D";
 
     const symBtns = document.querySelectorAll(".symbol-selector-bar .sym-btn");
@@ -243,36 +243,61 @@ document.addEventListener("DOMContentLoaded", () => {
     function loadTeknikChart(symbol, interval) {
         const container = document.getElementById("tv-teknik-chart-container");
         if (!container) return;
-        container.innerHTML = `<div id="tv_chart_inner" style="height:100%;width:100%;"></div>`;
 
-        if (typeof TradingView !== 'undefined') {
-            new TradingView.widget({
-                "width": "100%",
-                "height": 520,
-                "symbol": symbol,
-                "interval": interval,
-                "timezone": "Europe/Istanbul",
-                "theme": "dark",
-                "style": "1",
-                "locale": "tr",
-                "toolbar_bg": "#020312",
-                "enable_publishing": false,
-                "allow_symbol_change": true,
-                "container_id": "tv_chart_inner"
-            });
+        if (symbol.startsWith("BIST:")) {
+            const ticker = symbol.split(":")[1];
+            const chartUrl = `https://tr.tradingview.com/chart/?symbol=${encodeURIComponent(symbol)}`;
+            container.innerHTML = `
+                <div class="tv-external-chart-state">
+                    <i class='bx bx-link-external' aria-hidden="true"></i>
+                    <strong>${ticker} tam grafiği TradingView'de açılır</strong>
+                    <span>BIST mum verileri TradingView tarafından harici sitelerde yayınlanmıyor. Teknik sinyal kadranı bu sayfada güncellenmeye devam eder.</span>
+                    <a href="${chartUrl}" target="_blank" rel="noopener nofollow">TradingView'de Aç <i class='bx bx-right-arrow-alt'></i></a>
+                </div>`;
+            return;
         }
+
+        container.innerHTML = `
+            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+            </div>`;
+
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+        script.async = true;
+        script.textContent = JSON.stringify({
+            "autosize": true,
+            "symbol": symbol,
+            "interval": interval,
+            "timezone": "Europe/Istanbul",
+            "theme": "dark",
+            "backgroundColor": "#020312",
+            "gridColor": "rgba(42, 46, 57, 0.3)",
+            "style": "1",
+            "locale": "tr",
+            "hide_side_toolbar": false,
+            "allow_symbol_change": true,
+            "save_image": true,
+            "calendar": false,
+            "support_host": "https://www.tradingview.com"
+        });
+        container.querySelector(".tradingview-widget-container").appendChild(script);
     }
 
     function loadTeknikGauge(symbol) {
         const container = document.getElementById("tv-gauge-container");
         if (!container) return;
-        container.innerHTML = "";
+        container.innerHTML = `
+            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+            </div>`;
 
         const script = document.createElement("script");
         script.type = "text/javascript";
         script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
         script.async = true;
-        script.innerHTML = JSON.stringify({
+        script.textContent = JSON.stringify({
             "interval": "1D",
             "width": "100%",
             "isTransparent": true,
@@ -283,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "locale": "tr",
             "colorTheme": "dark"
         });
-        container.appendChild(script);
+        container.querySelector(".tradingview-widget-container").appendChild(script);
     }
 
     symBtns.forEach(btn => {
@@ -305,11 +330,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Initial TV Load
-    setTimeout(() => {
-        loadTeknikChart(currentSymbol, currentInterval);
-        loadTeknikGauge(currentSymbol);
-    }, 400);
+    // Initial TradingView load
+    loadTeknikChart(currentSymbol, currentInterval);
+    loadTeknikGauge(currentSymbol);
 
     /* ----------------------------------------------------------------------
        Pivot Points Calculator Logic
@@ -359,4 +382,3 @@ document.addEventListener("DOMContentLoaded", () => {
         calculatePivotPoints();
     }
 });
-

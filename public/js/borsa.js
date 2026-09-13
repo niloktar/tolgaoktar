@@ -156,77 +156,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderTargetPrices();
 
-    // 2. DATA: Türkiye & Dünya Ekonomik Takvimi (English)
-    const calendarData = [
-        { country: '🇹🇷 TR', title: 'CBRT Interest Rate Decision (PPK)', dateStr: 'Sep 17 Thu', time: '14:00', impact: 'high', expected: '50.00%', previous: '50.00%', actual: 'Pending' },
-        { country: '🇺🇸 US', title: 'Fed Interest Rate Decision (FOMC)', dateStr: 'Sep 16 Wed', time: '21:00', impact: 'high', expected: '5.25%', previous: '5.50%', actual: 'Pending' },
-        { country: '🇺🇸 US', title: 'US Headline Inflation (CPI YoY)', dateStr: 'Sep 15 Tue', time: '15:30', impact: 'high', expected: '2.6%', previous: '2.9%', actual: 'Released: 2.5%' },
-        { country: '🇹🇷 TR', title: 'TURKSTAT Industrial Production (YoY)', dateStr: 'Sep 14 Mon', time: '10:00', impact: 'med', expected: '-1.5%', previous: '-3.9%', actual: 'Pending' },
-        { country: '🇪🇺 EU', title: 'ECB Deposit Facility Rate', dateStr: 'Sep 17 Thu', time: '15:15', impact: 'high', expected: '3.50%', previous: '3.75%', actual: 'Pending' },
-        { country: '🇺🇸 US', title: 'Weekly Initial Jobless Claims', dateStr: 'Sep 17 Thu', time: '15:30', impact: 'med', expected: '230K', previous: '227K', actual: 'Pending' },
-        { country: '🇹🇷 TR', title: 'TURKSTAT Housing Sales Statistics', dateStr: 'Sep 14 Mon', time: '10:00', impact: 'low', expected: '4.0%', previous: '16.0%', actual: 'Pending' }
-    ];
+    // Latest company disclosures from the server-side KAP feed.
+    const kapList = document.getElementById('kap-list');
+    const kapRange = document.getElementById('kap-range');
+    const escapeKapHtml = value => String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
 
-    const calendarList = document.getElementById('calendar-list');
-    const calFilterBtns = document.querySelectorAll('.cal-filter-btn');
-
-    let currentCalFilter = 'ALL';
-
-    function renderCalendar() {
-        if (!calendarList) return;
-
-        const filtered = calendarData.filter(item => {
-            if (currentCalFilter === 'TR') return item.country.includes('TR');
-            if (currentCalFilter === 'GLOBAL') return !item.country.includes('TR');
-            if (currentCalFilter === 'HIGH') return item.impact === 'high';
-            return true;
-        });
-
-        calendarList.innerHTML = filtered.map(item => {
-            let impactBadge = '<span class="impact-high">🔴 High Impact</span>';
-            if (item.impact === 'med') impactBadge = '<span class="impact-med">🟡 Med Impact</span>';
-            if (item.impact === 'low') impactBadge = '<span class="impact-low">🟢 Low Impact</span>';
-
-            return `
-                <div class="calendar-item">
-                    <div class="cal-top">
-                        <span class="cal-flag">${item.country}</span>
-                        <span class="cal-time"><i class='bx bx-calendar'></i> ${item.dateStr} - ${item.time}</span>
+    async function loadKapNotifications() {
+        if (!kapList) return;
+        try {
+            const response = await fetch('/api/kap-notifications', { headers: { Accept: 'application/json' } });
+            const data = await response.json();
+            if (!response.ok || !Array.isArray(data.notifications)) throw new Error(data.message || 'KAP akışı alınamadı');
+            if (kapRange) {
+                const formatDate = value => new Date(`${value}T12:00:00`).toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit' });
+                kapRange.textContent = `Son 15 Gün · ${formatDate(data.from)}–${formatDate(data.to)}`;
+            }
+            if (!data.notifications.length) {
+                kapList.innerHTML = '<div class="kap-state">Son 15 günde şirket bildirimi bulunamadı.</div>';
+                return;
+            }
+            kapList.innerHTML = data.notifications.map(item => `
+                <a class="kap-item" href="${escapeKapHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeKapHtml(item.ticker)}: ${escapeKapHtml(item.subject)}">
+                    <div class="kap-date-time"><time>${escapeKapHtml(item.time)}</time><span>${escapeKapHtml(item.date.split('-').reverse().slice(0, 2).join('.'))}</span></div>
+                    <div class="kap-content">
+                        <div class="kap-company-line"><strong>${escapeKapHtml(item.ticker || 'KAP')}</strong><span title="${escapeKapHtml(item.company)}">${escapeKapHtml(item.company)}</span></div>
+                        <div class="kap-type">${escapeKapHtml(item.type)}</div>
+                        <div class="kap-subject" title="${escapeKapHtml(item.subject)}">${escapeKapHtml(item.subject)}</div>
                     </div>
-                    <div class="cal-title">${item.title}</div>
-                    <div class="cal-metrics">
-                        <div>
-                            <div class="metric-label">Forecast</div>
-                            <div class="metric-val">${item.expected}</div>
-                        </div>
-                        <div>
-                            <div class="metric-label">Previous</div>
-                            <div class="metric-val">${item.previous}</div>
-                        </div>
-                        <div>
-                            <div class="metric-label">Status</div>
-                            <div class="metric-val" style="color: var(--main-color);">${item.actual}</div>
-                        </div>
-                    </div>
-                    <div style="font-size: 0.72rem; display: flex; justify-content: space-between; align-items: center; margin-top: 2px;">
-                        ${impactBadge}
-                        <span style="color: var(--text-muted); font-weight: 600;">Upcoming</span>
-                    </div>
-                </div>
-            `;
-        }).join('');
+                    <i class='bx bx-link-external kap-open-icon' aria-hidden="true"></i>
+                </a>`).join('');
+        } catch (error) {
+            kapList.innerHTML = '<div class="kap-state kap-error">KAP bildirimleri şu anda güncellenemiyor.</div>';
+        } finally {
+            kapList.setAttribute('aria-busy', 'false');
+        }
     }
 
-    calFilterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            calFilterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentCalFilter = btn.dataset.filter;
-            renderCalendar();
-        });
-    });
-
-    renderCalendar();
+    loadKapNotifications();
 
     // 3. TradingView Chart Symbol Switcher
     const symBtns = document.querySelectorAll('.sym-btn');

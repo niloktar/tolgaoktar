@@ -444,98 +444,72 @@ header {
     color: var(--green-up);
 }
 
-/* Economic Calendar Feed */
-.calendar-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: 480px;
-    overflow-y: auto;
-    padding-right: 4px;
-}
-
-.calendar-item {
-    background: #121724;
-    border: 1px solid var(--card-border);
-    border-radius: 10px;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-.calendar-item:hover {
-    border-color: rgba(24, 226, 255, 0.4);
-    transform: translateX(3px);
-}
-
-.cal-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.cal-flag {
-    font-size: 1.1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--text-color);
-}
-
-.cal-time {
-    font-size: 0.8rem;
-    color: var(--main-color);
-    font-weight: 700;
-    background: rgba(24, 226, 255, 0.1);
-    padding: 2px 8px;
-    border-radius: 4px;
-}
-
-.cal-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--text-color);
-    line-height: 1.3;
-}
-
-.cal-metrics {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    background: #090c15;
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 0.78rem;
-    text-align: center;
-}
-
-.metric-label {
+/* Economic Calendar */
+.calendar-date {
     color: var(--text-muted);
-    font-size: 0.72rem;
-
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
-.metric-val {
-    font-weight: 700;
-    color: var(--text-color);
-    margin-top: 2px;
-}
-
-.impact-high {
-    color: var(--red-down);
-}
-.impact-med {
-    color: var(--gold-accent);
-}
-.impact-low {
+.calendar-live-badge {
     color: var(--green-up);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.calendar-live-badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background: var(--green-up);
+}
+
+.economic-calendar-widget {
+    width: 100%;
+    min-height: 420px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.economic-calendar-widget .tradingview-widget-copyright {
+    font-size: 0.68rem;
+    text-align: right;
+    padding-top: 4px;
 }
 
 /* KAP News & Market Feed */
+.kap-range { color: var(--text-muted); font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; }
+.kap-list { display: flex; flex-direction: column; max-height: 455px; overflow-y: auto; padding-right: 3px; }
+.kap-item { display: grid; grid-template-columns: 48px minmax(0, 1fr) 18px; gap: 10px; align-items: start; padding: 10px 4px; color: var(--text-color); border-bottom: 1px solid var(--card-border); transition: background 0.2s ease; }
+.kap-item:hover { background: rgba(24, 226, 255, 0.04); }
+.kap-date-time { display: flex; flex-direction: column; }
+.kap-date-time time { color: var(--main-color); font-size: 0.8rem; font-weight: 700; }
+.kap-date-time span { color: var(--text-muted); font-size: 0.68rem; }
+.kap-content { min-width: 0; }
+.kap-company-line { display: flex; align-items: baseline; gap: 7px; min-width: 0; }
+.kap-company-line strong { color: var(--text-color); font-size: 0.82rem; }
+.kap-company-line span { color: var(--text-muted); font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kap-type { color: var(--gold-accent); font-size: 0.7rem; font-weight: 600; margin-top: 2px; }
+.kap-subject { font-size: 0.78rem; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kap-open-icon { color: var(--text-muted); font-size: 0.9rem; margin-top: 3px; }
+.kap-item:hover .kap-open-icon { color: var(--main-color); }
+.kap-all-link { display: flex; justify-content: flex-end; align-items: center; gap: 3px; color: var(--main-color); font-size: 0.76rem; font-weight: 700; margin-top: 10px; }
+.kap-state { color: var(--text-muted); font-size: 0.8rem; padding: 14px 4px; }
+.kap-error { color: var(--gold-accent); }
+
+@media (max-width: 560px) {
+    .kap-list { max-height: 390px; }
+    .kap-item { grid-template-columns: 43px minmax(0, 1fr) 16px; gap: 7px; padding: 9px 2px; }
+    .kap-company-line span { display: none; }
+    .kap-type, .kap-subject { display: inline; }
+    .kap-type::after { content: ' · '; color: var(--text-muted); }
+}
+
 .news-list {
     display: flex;
     flex-direction: column;

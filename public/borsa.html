@@ -270,88 +270,50 @@
             <!-- Right / Side Column -->
             <div class="side-column">
 
-                <!-- KAP Bildirimleri & Haber Akışı Card -->
-                <div class="terminal-card">
+                <!-- KAP Notifications Card -->
+                <div class="terminal-card kap-card">
                     <div class="card-header">
                         <div class="card-title">
-                            <i class='bx bx-news'></i> KAP Bildirimleri & Akış
+                            <i class='bx bx-news'></i> KAP BİLDİRİMLERİ
                         </div>
+                        <span class="calendar-live-badge">CANLI</span>
                     </div>
                     <div class="card-body">
-                        <div class="news-list">
-                            <div class="news-item">
-                                <div class="news-meta">
-                                    <span class="news-tag">KAP</span>
-                                    <span class="news-time">13:15</span>
-                                </div>
-                                <div class="news-headline">THYAO - 2026/08 Yolcu ve Kargo Trafik Sonuçları Açıklandı (Yolcu sayısı %6.4 arttı).</div>
-                            </div>
-                            <div class="news-item">
-                                <div class="news-meta">
-                                    <span class="news-tag">MAKRO</span>
-                                    <span class="news-time">12:45</span>
-                                </div>
-                                <div class="news-headline">TCMB Haftalık Para ve Banka İstatistikleri Yayımlandı (Brüt rezervler 152 Milyar $).</div>
-                            </div>
-                            <div class="news-item">
-                                <div class="news-meta">
-                                    <span class="news-tag">KAP</span>
-                                    <span class="news-time">11:30</span>
-                                </div>
-                                <div class="news-headline">ASELS - Yeni Uluslararası Savunma Sözleşmesi İmzalandı (42.5 Milyon USD).</div>
-                            </div>
-                            <div class="news-item">
-                                <div class="news-meta">
-                                    <span class="news-tag">GLOBAL</span>
-                                    <span class="news-time">10:15</span>
-                                </div>
-                                <div class="news-headline">Fed Üyelerinden Yumuşak İniş ve Faiz İndirimi Sinyali.</div>
-                            </div>
-                            <div class="news-item">
-                                <div class="news-meta">
-                                    <span class="news-tag">KAP</span>
-                                    <span class="news-time">09:40</span>
-                                </div>
-                                <div class="news-headline">GARAN - Temettü Dağıtım Tarihi Ve Oranı Kesinleşti.</div>
-                            </div>
+                        <div class="kap-range" id="kap-range">Son 15 Gün</div>
+                        <div class="kap-list" id="kap-list" aria-live="polite" aria-busy="true">
+                            <div class="kap-state">Bildirimler yükleniyor…</div>
                         </div>
+                        <a class="kap-all-link" href="https://www.kap.org.tr/tr/bildirim-sorgu?disclosureClass=ALL" target="_blank" rel="noopener noreferrer">Tümünü Gör <i class='bx bx-right-arrow-alt'></i></a>
                     </div>
                 </div>
 
-                <!-- Economic Calendar Card (English) -->
-                <div class="terminal-card">
+                <!-- Daily Economic Calendar Card -->
+                <div class="terminal-card economic-calendar-card">
                     <div class="card-header">
                         <div class="card-title">
-                            <i class='bx bx-calendar-event'></i> Ekonomik Takvim
+                            <i class='bx bx-calendar-event'></i> EKONOMİ TAKVİMİ
                         </div>
-                        <div class="card-controls">
-                            <button class="btn-filter cal-filter-btn active" data-filter="ALL">All</button>
-                            <button class="btn-filter cal-filter-btn" data-filter="TR">TR</button>
-                            <button class="btn-filter cal-filter-btn" data-filter="GLOBAL">Global</button>
-                            <button class="btn-filter cal-filter-btn" data-filter="HIGH">🔴 High Impact</button>
-                        </div>
+                        <span class="calendar-live-badge">CANLI</span>
                     </div>
                     <div class="card-body">
-                        <div class="calendar-list" id="calendar-list">
-                            <!-- Rendered dynamically in English by borsa.js -->
-                        </div>
-
-                        <!-- TradingView Official Live Economic Calendar Widget (English) -->
-                        <div class="tradingview-widget-container" style="border-radius: 8px; overflow: hidden; border-top: 1px solid var(--card-border); padding-top: 10px; margin-top: 10px;">
-                          <div style="font-size: 0.78rem; font-weight: 700; color: var(--main-color); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
-                            <span><i class='bx bx-broadcast'></i> Live Global Calendar (TradingView)</span>
-                          </div>
-                          <div class="tradingview-widget-container__widget"></div>
-                          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                          {
-                          "colorTheme": "dark",
-                          "isTransparent": true,
-                          "width": "100%",
-                          "height": "340",
-                          "locale": "en",
-                          "importanceFilter": "-1,0,1"
-                        }
-                          </script>
+                        <div class="calendar-date">Bugün piyasayı etkileyebilecek önemli veriler</div>
+                        <div class="tradingview-widget-container economic-calendar-widget">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tradingview-widget-copyright">
+                                <a href="https://tr.tradingview.com/economic-calendar/" rel="noopener nofollow" target="_blank"><span class="blue-text">Ekonomik Takvim</span></a>
+                                <span class="trademark"> — TradingView</span>
+                            </div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                            {
+                              "colorTheme": "dark",
+                              "isTransparent": true,
+                              "width": "100%",
+                              "height": "420",
+                              "locale": "tr",
+                              "countryFilter": "tr,us,eu,de,cn,gb,jp",
+                              "importanceFilter": "0,1"
+                            }
+                            </script>
                         </div>
                     </div>
                 </div>

@@ -12,11 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
         menuIcon.onclick = () => {
             menuIcon.classList.toggle("bx-x");
             navbar.classList.toggle("active");
+        menuIcon.setAttribute("aria-expanded", String(navbar.classList.contains("active")));
         };
 
         window.onscroll = () => {
             menuIcon.classList.remove("bx-x");
             navbar.classList.remove("active");
+        menuIcon.setAttribute("aria-expanded", "false");
         };
     }
 

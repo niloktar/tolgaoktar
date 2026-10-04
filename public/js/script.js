@@ -12,12 +12,14 @@ let navbar = document.querySelector(".navbar");
 if (menu && navbar) {
     menu.onclick = () => {
         menu.classList.toggle("bx-x");
-        navbar.classList.toggle("active");   
+        navbar.classList.toggle("active");
+        menu.setAttribute("aria-expanded", String(navbar.classList.contains("active")));
     };
 
     window.onscroll = () => {
         menu.classList.remove("bx-x");
-        navbar.classList.remove("active");   
+        navbar.classList.remove("active");
+        menu.setAttribute("aria-expanded", "false");
     };
 }
 
